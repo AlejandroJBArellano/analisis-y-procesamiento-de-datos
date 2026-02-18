@@ -1,0 +1,219 @@
+================================================================================
+COMPARATIVA: IQR vs ISOLATION FOREST
+================================================================================
+
+📊 Dataset: Iris Flowers
+   Dimensiones: 150 muestras × 4 características
+
+   Características:
+   1. sepal length (cm)
+   2. sepal width (cm)
+   3. petal length (cm)
+   4. petal width (cm)
+
+Resumen estadístico:
+       sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)
+count             150.00            150.00             150.00            150.00
+mean                5.84              3.06               3.76              1.20
+std                 0.83              0.44               1.77              0.76
+min                 4.30              2.00               1.00              0.10
+25%                 5.10              2.80               1.60              0.30
+50%                 5.80              3.00               4.35              1.30
+75%                 6.40              3.30               5.10              1.80
+max                 7.90              4.40               6.90              2.50
+
+================================================================================
+MÉTODO 1: IQR (UNIVARIADO)
+================================================================================
+
+📌 sepal length (cm):
+   Q1: 5.100, Q3: 6.400, IQR: 1.300
+   Límites: [3.150, 8.350]
+   Outliers detectados: 0
+
+📌 sepal width (cm):
+   Q1: 2.800, Q3: 3.300, IQR: 0.500
+   Límites: [2.050, 4.050]
+   Outliers detectados: 4
+
+📌 petal length (cm):
+   Q1: 1.600, Q3: 5.100, IQR: 3.500
+   Límites: [-3.650, 10.350]
+   Outliers detectados: 0
+
+📌 petal width (cm):
+   Q1: 0.300, Q3: 1.800, IQR: 1.500
+   Límites: [-1.950, 4.050]
+   Outliers detectados: 0
+
+🎯 TOTAL DE OUTLIERS IQR (UNIÓN): 4
+   Índices: [15, 32, 33, 60]
+
+================================================================================
+MÉTODO 2: ISOLATION FOREST (MULTIVARIADO)
+================================================================================
+
+📊 Isolation Forest Results:
+   Total de outliers detectados: 15
+   Índices: [13, 14, 15, 22, 32, 33, 41, 60, 62, 98, 109, 117, 118, 122, 131]
+
+   Anomaly Scores (primeros 10):
+      Muestra 0: -0.4083 
+      Muestra 1: -0.4343 
+      Muestra 2: -0.4548 
+      Muestra 3: -0.4636 
+      Muestra 4: -0.4193 
+      Muestra 5: -0.5064 
+      Muestra 6: -0.4979 
+      Muestra 7: -0.4042 
+      Muestra 8: -0.5081 
+      Muestra 9: -0.4724 
+
+================================================================================
+COMPARACIÓN DE MÉTODOS
+================================================================================
+
+📊 ESTADÍSTICAS DE OVERLAPPING:
+   Outliers por IQR:           4
+   Outliers por IF:            15
+   Encontrados por AMBOS:      4
+   Solo por IQR:               0
+   Solo por IF:                11
+
+🔗 ÍNDICES ÚNICOS DE IF (no detectados por IQR):
+   [13, 14, 22, 41, 62, 98, 109, 117, 118, 122, 131]
+
+🔗 ÍNDICES ÚNICOS DE IQR (no detectados por IF):
+   Ninguno - IQR detectó los mismos outliers que IF
+
+================================================================================
+ANÁLISIS DE ANOMALÍAS DETECTADAS
+================================================================================
+
+🔴 Anomalías encontradas SOLO por Isolation Forest (11):
+
+   Índice 13:
+      sepal length (cm): 4.300
+      sepal width (cm): 3.000
+      petal length (cm): 1.100
+      petal width (cm): 0.100
+      Anomaly Score: -0.6049
+
+   Índice 14:
+      sepal length (cm): 5.800
+      sepal width (cm): 4.000
+      petal length (cm): 1.200
+      petal width (cm): 0.200
+      Anomaly Score: -0.5938
+
+   Índice 22:
+      sepal length (cm): 4.600
+      sepal width (cm): 3.600
+      petal length (cm): 1.000
+      petal width (cm): 0.200
+      Anomaly Score: -0.5677
+
+   Índice 41:
+      sepal length (cm): 4.500
+      sepal width (cm): 2.300
+      petal length (cm): 1.300
+      petal width (cm): 0.300
+      Anomaly Score: -0.6229
+
+   Índice 62:
+      sepal length (cm): 6.000
+      sepal width (cm): 2.200
+      petal length (cm): 4.000
+      petal width (cm): 1.000
+      Anomaly Score: -0.5371
+
+   Índice 98:
+      sepal length (cm): 5.100
+      sepal width (cm): 2.500
+      petal length (cm): 3.000
+      petal width (cm): 1.100
+      Anomaly Score: -0.5393
+
+   Índice 109:
+      sepal length (cm): 7.200
+      sepal width (cm): 3.600
+      petal length (cm): 6.100
+      petal width (cm): 2.500
+      Anomaly Score: -0.6066
+
+   Índice 117:
+      sepal length (cm): 7.700
+      sepal width (cm): 3.800
+      petal length (cm): 6.700
+      petal width (cm): 2.200
+      Anomaly Score: -0.6199
+
+   Índice 118:
+      sepal length (cm): 7.700
+      sepal width (cm): 2.600
+      petal length (cm): 6.900
+      petal width (cm): 2.300
+      Anomaly Score: -0.6104
+
+   Índice 122:
+      sepal length (cm): 7.700
+      sepal width (cm): 2.800
+      petal length (cm): 6.700
+      petal width (cm): 2.000
+      Anomaly Score: -0.5526
+
+   Índice 131:
+      sepal length (cm): 7.900
+      sepal width (cm): 3.800
+      petal length (cm): 6.400
+      petal width (cm): 2.000
+      Anomaly Score: -0.6457
+
+================================================================================
+GENERANDO VISUALIZACIONES...
+================================================================================
+
+✅ Gráfico guardado: comparativa_outliers.png
+✅ Gráfico guardado: heatmap_outliers.png
+
+================================================================================
+TABLA DE RESULTADOS FINAL
+================================================================================
+
+                         Método  Outliers Detectados Únicos
+               IQR (Univariado)                    4      0
+Isolation Forest (Multivariado)                   15     11
+                   Solapamiento                    4      -
+
+================================================================================
+CONCLUSIONES Y OBSERVACIONES
+================================================================================
+
+🔍 DIFERENCIAS CLAVE:
+
+IQR (Univariado):
+  ✓ Detecta valores extremos en CADA variable individual
+  ✓ Rápido y fácil de interpretar
+  ✗ No considera RELACIONES entre variables
+  ✗ Puede pasar por alto anomalías multivariadas
+
+Isolation Forest (Multivariado):
+  ✓ Considera TODAS las variables simultáneamente
+  ✓ Detecta anomalías en el espacio multidimensional
+  ✓ Identifica patrones anómalos complejos
+  ✗ Más computacionalmente intensivo
+  ✗ Requiere ajuste de parámetros (contamination)
+
+📊 RESULTADO EN ESTE DATASET:
+  • Outliers solo detectedos por IQR: 0
+  • Outliers solo detectados por IF: 11
+  • Concordancia: 100.0%
+
+💡 RECOMENDACIÓN:
+  Usar AMBOS métodos para una detección más robusta:
+  - IQR para anomalías univariadas claras
+  - Isolation Forest para anomalías complejas multivariadas
+  - Triangular con un tercer método si es crítico
+
+
+================================================================================
