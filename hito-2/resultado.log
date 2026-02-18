@@ -1,0 +1,135 @@
+================================================================================
+PIPELINE DE TRANSFORMACIÓN DE DATOS
+================================================================================
+
+📊 Dataset Original:
+   Muestras: 308
+   Mínimo: $25.37
+   Máximo: $2,000,000.00
+   Media: $20,971.39
+   Mediana: $3,663.91
+   Desv. Est.: $137,851.55
+   Rango: $1,999,974.63
+
+📈 Estadísticas de Forma:
+   Skewness (sesgo): 11.4216
+      Interpretación: Muy sesgado a la derecha
+   Kurtosis (curtosis): 146.2548
+      Interpretación: Colas muy pesadas
+
+================================================================================
+APLICANDO TRANSFORMACIONES
+================================================================================
+
+1️⃣ TRANSFORMACIÓN LOG1P (log(1 + x)):
+   Mínimo: 3.2723
+   Máximo: 14.5087
+   
+   Media: 8.0385
+   Mediana: 8.2066
+   Desv. Est.: 1.5059
+   Skewness: 0.2087 (antes: 11.4216)
+   Kurtosis: 2.7884 (antes: 146.2548)
+
+2️⃣ TRANSFORMACIÓN SQRT (√x):
+   Mínimo: 5.0371
+   Máximo: 1414.2136
+   Media: 78.7211
+   Mediana: 60.5302
+   Desv. Est.: 121.5499
+   Skewness: 7.3820 (antes: 11.4216)
+   Kurtosis: 64.2559 (antes: 146.2548)
+
+3️⃣ TRANSFORMACIÓN BOX-COX:
+   Lambda óptimo: -0.0228
+   Mínimo: 3.1532
+   Máximo: 12.3527
+   Media: 7.3233
+   Mediana: 7.4844
+   Desv. Est.: 1.2514
+   Skewness: -0.0286 (antes: 11.4216)
+   Kurtosis: 2.4342 (antes: 146.2548)
+
+================================================================================
+GENERANDO VISUALIZACIONES...
+================================================================================
+
+✅ Gráfico guardado: transformacion_datos.png
+✅ Gráfico guardado: log1p_comparison.png
+
+================================================================================
+RESUMEN DE IMPACTO DE TRANSFORMACIONES
+================================================================================
+
+   Métrica      Original   Log1p      Sqrt Box-Cox
+     Media    $20,971.39  8.0385   78.7211  7.3233
+   Mediana     $3,663.91  8.2066   60.5302  7.4844
+Desv. Est.   $137,851.55  1.5059  121.5499  1.2514
+     Rango $1,999,974.63 11.2363 1409.1765  9.1995
+  Skewness       11.4216  0.2087    7.3820 -0.0286
+  Kurtosis      146.2548  2.7884   64.2559  2.4342
+
+================================================================================
+ANÁLISIS DE REDUCCIÓN DE VARIABILIDAD
+================================================================================
+
+✨ MEJORA EN SKEWNESS (Sesgo):
+   Log1p:   98.17% de reducción
+   Sqrt:    35.37% de reducción
+   Box-Cox: 99.75% de reducción
+
+✨ MEJORA EN KURTOSIS (Curtosis):
+   Log1p:   98.09% de reducción
+   Sqrt:    56.07% de reducción
+   Box-Cox: 98.34% de reducción
+
+================================================================================
+COMPRESIÓN DE OUTLIERS EXTREMOS (Cola Derecha)
+================================================================================
+
+📊 Outliers Extremos (> Percentil 95: 16,951.34):
+   Cantidad: 16
+   Rango original: [17,004.21, 2,000,000.00]
+   Rango log1p:    [9.7413, 14.5087]
+   Compresión: 100.00%
+
+================================================================================
+CONCLUSIONES Y RECOMENDACIONES
+================================================================================
+
+🎯 TRANSFORMACIONES APLICADAS:
+
+1. LOG1P (log(1 + x)):
+   ✅ Comprime efectivamente la cola derecha
+   ✅ Transforma relaciones exponenciales en lineales
+   ✅ Interpetable: log(ingresos) → % de cambio
+   ✅ Mejor para: datos de ingresos, precios, tráfico
+   ⚠️  Solo funciona con valores ≥ 0
+
+2. SQRT (√x):
+   ✅ Compresión moderada (menos agresiva que log)
+   ✅ Preserva mejor la escala original
+   ⚠️  Menos efectiva con outliers extremos
+   ✅ Mejor para: datos de conteos, áreas
+
+3. BOX-COX:
+   ✅ Encuentra la transformación óptima automáticamente
+   ✅ Lambda = -0.0228
+   ✅ Maximiza normalidad de la distribución
+   ⚠️  Solo funciona con valores > 0
+   ⚠️  Más computacionalmente intensivo
+
+📈 RESULTADOS:
+   • Reducción de sesgo (log1p): 98.17%
+   • Reducción de curtosis (log1p): 98.09%
+   • Compresión de outliers extremos: Rango reducido de 1,982,996 a 4.77
+
+💡 RECOMENDACIÓN:
+   Para datos con outliers extremos y distribución sesgada:
+   1. Primero intentar LOG1P (simple, interpretable)
+   2. Si log1p no es suficiente, probar BOX-COX
+   3. Usar SQRT para compresión suave
+   4. SIEMPRE visualizar antes y después
+
+
+================================================================================
